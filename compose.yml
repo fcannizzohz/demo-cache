@@ -1,0 +1,41 @@
+services:
+  hazelcast1:
+    image: hazelcast/hazelcast-enterprise:latest
+    ports:
+      - "5701:5701"
+    volumes:
+      - ./resources:/home/hazelcast/data
+    environment:
+      - HZ_NETWORK_JOIN_TCP_IP_ENABLED=true
+      - HZ_NETWORK_JOIN_TCP_IP_MEMBERS=hazelcast1
+      - HZ_LICENSEKEY=${HZ_LICENSEKEY}
+    networks:
+      - hznet
+
+  management-center:
+    image: hazelcast/management-center:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - MC_DEFAULT_CLUSTER=dev
+      - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast1
+      - MC_LICENSE=${HZ_LICENSEKEY}
+    networks:
+      - hznet
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - hznet
+
+networks:
+  hznet:
+    driver: bridge
+
+volumes:
+  mongo_data:

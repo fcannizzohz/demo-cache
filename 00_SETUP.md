@@ -29,8 +29,6 @@ docker ps
 
 Hazelcast cluster is configured using the file `./resources/hazelcast.yaml`.
 
-MongoDB database is persisted in `./mongo_data`.
-
 ## Testing the setup
 
 To manually test the cluster Hazelcast provides a shell client as documented [here](https://docs.hazelcast.com/clc/5.5.0/install-clc), alternatively, it can be tested using the embedded client in the docker image:
@@ -54,20 +52,3 @@ ADDRESS                  UUID
 ```
 
 [Management Center](https://hazelcast.com/products/management-center/) is available at `http://localhost:8080`. Since we have started with the default settings, the cluster name is `dev`. The cluster should be immediately available. Use of Management Center is documented [here](https://docs.hazelcast.com/management-center/5.8/getting-started/overview).
-
-To test mongodb, you can run `mongosh` as documented [here](https://www.mongodb.com/resources/products/compatibilities/docker)
-
-```bash
-% docker run --name mongosh \
-    --network demo-cache_hznet \
-    mongodb/mongodb-community-server:latest mongosh \
-    mongodb://mongodb --eval "show dbs"
-```
-
-which shows an output similar to
-
-```
-admin   40.00 KiB
-config  12.00 KiB
-local   72.00 KiB
-```

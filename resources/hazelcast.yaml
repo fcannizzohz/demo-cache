@@ -2,3 +2,25 @@ hazelcast:
   cluster-name: dev
   properties:
     hazelcast.socket.bind.any: true
+
+  # shared connection between generic MapLoader and MapStore
+  data-connection:
+    pgsql-connection:
+      type: JDBC
+      properties:
+        jdbcUrl: jdbc:postgresql://pgsql:5432/postgres
+        user: postgres
+        password: ${POSTGRES_PASSWORD}
+      shared: true
+
+  map:
+    orders:
+      map-store:
+        enabled: true
+        class-name: com.hazelcast.mapstore.GenericMapLoader
+        properties:
+          data-connection-ref: pgsql-connection
+          external-name: orders
+          id-column: id
+          columns: product_id, created_at, updated_at, quantity, description, status_id
+          type-name: com.hazelcast.fcannizzohz.democache.Orders

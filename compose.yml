@@ -1,4 +1,6 @@
 services:
+
+  ## Hazelcast cluster and Management Center
   hazelcast1:
     image: hazelcast/hazelcast-enterprise:latest
     container_name: hz1
@@ -23,6 +25,31 @@ services:
       - MC_DEFAULT_CLUSTER=dev
       - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast1
       - MC_LICENSE=${HZ_LICENSEKEY}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - hznet
+
+  ## postgres
+  pgsql:
+    image: postgres
+    container_name: pgsql
+    restart: always
+    shm_size: 128mb
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./data/pgsql:/var/lib/postgresql/data
+      - ./resources/pgsql.password:/run/secrets/pgsql_password:ro
+    networks:
+      - hznet
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8089:8080
     networks:
       - hznet
 

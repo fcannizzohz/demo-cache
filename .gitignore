@@ -1,5 +1,7 @@
 # directories
-mongo_data/*
+data/pgsql/*
+
+.env
 
 # Compiled class file
 *.class

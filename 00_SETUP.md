@@ -1,20 +1,26 @@
 # Setup
 
-The setup for this project consists of an Hazelcast cluster made of a single member (for now) with Management Centre
-and a MongoDB instance. The stack is started locally via docker compose.
+The setup for this project consists of an Hazelcast cluster made of a single member (for now) with Management Centre . The stack is started locally via docker compose.
 
-Later on, for more advanced usages we'll extend the setup with more nodes
+Later on, for more advanced usages we'll extend the setup with more nodes and components.
 
 Since we use Hazelcast Enterprise, you need a license. You can get a trial enterprise license from [here](https://hazelcast.com/get-started/).
 
-The current docker compose assumes that the license is stored in an environment variable, so to spin up the stack with the license (assuming it's not already configured in your shell environment):
+The current docker compose assumes that the license string is stored in the file `./.env`:
 
 ```bash
-export HZ_LICENSEKEY=<your-license>
+cat .env
+
+HZ_LICENSEKEY=<your license>
+```
+
+With the license setup, you can start the stack with
+
+```bash
 docker compose up
 ```
 
-You should see the following
+Then you should see an output similar to:
 
 ```bash
 docker ps
@@ -52,3 +58,5 @@ ADDRESS                  UUID
 ```
 
 [Management Center](https://hazelcast.com/products/management-center/) is available at `http://localhost:8080`. Since we have started with the default settings, the cluster name is `dev`. The cluster should be immediately available. Use of Management Center is documented [here](https://docs.hazelcast.com/management-center/5.8/getting-started/overview).
+
+To confirm whether the license is setup and what features your license enables, go to Menu (top right), then Settings; the License tab will show the details.

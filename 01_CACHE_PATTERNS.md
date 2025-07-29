@@ -60,6 +60,30 @@ To create the schema run the following command that uses `psql` to execute the c
 docker exec -i pgsql psql -U postgres -f - < ./resources/demo-cache-pgsql-schema.sql
  ```
 
+## Setting up the Java project
+
+Before configuring Hazelcast, we need to create the Java classes representing the data in the newly created schema. These classes are `com.hazelcast.fcannizzohz.democache.model.[Order|Product|OrderStatus]`.
+
+The provided `pom.xml` file contains all the necessary dependencies. They also include
+
+```xml
+        <dependency>
+            <!-- import the opensource test support classes -->
+            <groupId>com.hazelcast</groupId>
+            <artifactId>hazelcast</artifactId>
+            <version>${hazelcast.version}</version>
+            <classifier>tests</classifier>
+        </dependency>
+```
+
+necessary to import the Hazelcast test support classes needed to unit test the code.
+
+With the pom and project setup, the following builds the jar file with the dependencies:
+
+```bash
+mvn clean package
+```
+
 ## Configuring Hazelcast JDBC connection and generic MapLoader/MapStore
 
 [This](https://docs.hazelcast.com/hazelcast/5.5/data-connections/data-connections-configuration) helps configuring a shared JDBC connection, [this](https://docs.hazelcast.com/hazelcast/5.5/mapstore/configuring-a-generic-maploader) helps configuring the generic MapLoader and [this](https://docs.hazelcast.com/hazelcast/5.5/mapstore/configuring-a-generic-mapstore) helps configuring the MapStore. 

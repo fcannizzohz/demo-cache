@@ -5,8 +5,9 @@ services:
     ports:
       - "5701:5701"
     volumes:
-      - ./resources:/home/hazelcast/data
+      - ./resources/hazelcast.yaml:/opt/hazelcast/hazelcast.yaml
     environment:
+      - HAZELCAST_CONFIG=/opt/hazelcast/hazelcast.yaml
       - HZ_NETWORK_JOIN_TCP_IP_ENABLED=true
       - HZ_NETWORK_JOIN_TCP_IP_MEMBERS=hazelcast1
       - HZ_LICENSEKEY=${HZ_LICENSEKEY}

@@ -25,6 +25,12 @@ docker ps
 | a8d2e00db316 | hazelcast/management-center:latest      | "bash ./bin/mc-start…" | 45 seconds ago | Up 45 seconds | 8081/tcp, 0.0.0.0:8080->8080/tcp, 8443/tcp | mc    |
 | eabe4909eaa0 | hazelcast/hazelcast-enterprise:latest   | "hz start"             | 45 seconds ago | Up 45 seconds | 0.0.0.0:5701->5701/tcp                     | hz1   |
 
+## Configuration
+
+Hazelcast cluster is configured using the file `./resources/hazelcast.yaml`.
+
+MongoDB database is persisted in `./mongo_data`.
+
 ## Testing the setup
 
 To manually test the cluster Hazelcast provides a shell client as documented [here](https://docs.hazelcast.com/clc/5.5.0/install-clc), alternatively, it can be tested using the embedded client in the docker image:
@@ -65,5 +71,3 @@ admin   40.00 KiB
 config  12.00 KiB
 local   72.00 KiB
 ```
-
-Note that the MongoDB database is persisted in `./mongo_data`.

@@ -1,3 +1,6 @@
+# directories
+mongo_data/*
+
 # Compiled class file
 *.class
 

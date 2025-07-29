@@ -2,6 +2,7 @@
 data/pgsql/*
 
 .env
+target/
 
 # Compiled class file
 *.class

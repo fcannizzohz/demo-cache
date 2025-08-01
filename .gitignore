@@ -1,6 +1,6 @@
 .env
 
-data/
+data/*
 target/
 
 # Compiled class file

@@ -4,6 +4,8 @@ data/pgsql/*
 .env
 target/
 
+.idea/workspace.xml
+
 # Compiled class file
 *.class
 

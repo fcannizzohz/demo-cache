@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/compose-init.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo-cache.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/DB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/EnvLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/ProductIT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" beforeDir="false" afterPath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/demo-cache-pgsql-schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/resources/demo-cache-pgsql-schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/hazelcast.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/hazelcast.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/OrderStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Product.java" afterDir="false" />
-    </list>
+    <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,6 +21,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/fcannizzohz/demo-cache",
+    "accountId": "2be7a68b-10f2-43ac-be87-861eb9ac1629"
+  }
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -208,7 +193,7 @@
       <workItem from="1753806109186" duration="461000" />
       <workItem from="1753806630166" duration="10035000" />
       <workItem from="1753896778416" duration="2451000" />
-      <workItem from="1753974804159" duration="12498000" />
+      <workItem from="1753974804159" duration="13061000" />
     </task>
     <servers />
   </component>

@@ -1,7 +1,7 @@
 # directories
-data/pgsql/*
-
 .env
+
+data/*
 target/
 
 .idea/workspace.xml

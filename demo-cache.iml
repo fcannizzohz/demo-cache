@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="AdditionalModuleElements">
+    <content url="file://$MODULE_DIR$" dumb="true">
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/base" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/global" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_commit_ts" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_dynshmem" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_logical" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_multixact" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_notify" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_replslot" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_serial" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_snapshots" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_stat" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_stat_tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_subtrans" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_tblspc" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_twophase" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_wal" />
+      <excludeFolder url="file://$MODULE_DIR$/data/pgsql/pg_xact" />
+    </content>
+  </component>
+</module>

@@ -5,19 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/OrderStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/demo-cache.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/compose-init.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo-cache.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/DB.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/EnvLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/ProductIT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" beforeDir="false" afterPath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/demo-cache-pgsql-schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/resources/demo-cache-pgsql-schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/hazelcast.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/hazelcast.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/OrderStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/model/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +35,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -48,8 +56,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.Main2.executor": "Run",
+    "JUnit.LoadTableViaGenericMapStoreIT.shouldReadAllProductsFromMap.executor": "Run",
+    "JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast.executor": "Run",
+    "JUnit.ProductIT.loadProductsIntoHazelcast.executor": "Run",
+    "Maven.demo-cache [clean].executor": "Run",
     "Maven.demo-cache [compile].executor": "Run",
+    "Maven.demo-cache [install].executor": "Run",
     "Maven.demo-cache [package].executor": "Run",
+    "Maven.demo-cache [test].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -79,104 +95,99 @@
       <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
+  <component name="RunManager" selected="JUnit.ProductIT.loadProductsIntoHazelcast">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.Main" />
       <module name="demo-cache" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hazelcast.fcannizzohz.democache.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2" />
+    </configuration>
+    <configuration name="Main2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <envs>
+        <env name="HZ_DATACONNECTION_PGSQLCONNECTION_PROPERTIES_PASSWORD" value="p123" />
+        <env name="HZ_DATACONNECTION_PGSQLCONNECTION_TYPE" value="JDBC" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.Main2" />
+      <module name="demo-cache" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hazelcast.fcannizzohz.democache.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+    <configuration name="ProductIT.loadProductsFromDbAndInsertIntoHazelcast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="demo-cache" />
-      <option name="filePath" />
-      <method v="2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hazelcast.fcannizzohz.democache.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hazelcast.fcannizzohz.democache" />
+      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.ProductIT" />
+      <option name="METHOD_NAME" value="loadProductsFromDbAndInsertIntoHazelcast" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+    <configuration name="ProductIT.loadProductsIntoHazelcast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="demo-cache" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hazelcast.fcannizzohz.democache.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hazelcast.fcannizzohz.democache" />
+      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.ProductIT" />
+      <option name="METHOD_NAME" value="loadProductsIntoHazelcast" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="Python.FlaskServer">
+    <configuration name="ProductIT.shouldReadAllProductsFromMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="demo-cache" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hazelcast.fcannizzohz.democache.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hazelcast.fcannizzohz.democache" />
+      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.ProductIT" />
+      <option name="METHOD_NAME" value="shouldReadAllProductsFromMap" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="demo-cache" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Autodetect">
-      <module name="demo-cache" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <module name="demo-cache" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method v="2" />
-    </configuration>
+    <list>
+      <item itemvalue="Application.Main2" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast" />
+      <item itemvalue="JUnit.ProductIT.loadProductsIntoHazelcast" />
+      <item itemvalue="JUnit.ProductIT.shouldReadAllProductsFromMap" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ProductIT.loadProductsIntoHazelcast" />
+        <item itemvalue="JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast" />
+        <item itemvalue="JUnit.ProductIT.shouldReadAllProductsFromMap" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main2" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -195,7 +206,9 @@
       <updated>1753710341247</updated>
       <workItem from="1753710342744" duration="25718000" />
       <workItem from="1753806109186" duration="461000" />
-      <workItem from="1753806630166" duration="1249000" />
+      <workItem from="1753806630166" duration="10035000" />
+      <workItem from="1753896778416" duration="2451000" />
+      <workItem from="1753974804159" duration="12498000" />
     </task>
     <servers />
   </component>
@@ -207,8 +220,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/Main.java</url>
-          <line>13</line>
+          <line>18</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/Main.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/ProductIT.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

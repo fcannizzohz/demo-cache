@@ -4,6 +4,7 @@ services:
   hazelcast1:
     image: hazelcast/hazelcast-enterprise:latest
     container_name: hz1
+    env_file: "./.env"
     ports:
       - "5701:5701"
     volumes:
@@ -12,20 +13,18 @@ services:
       - HAZELCAST_CONFIG=/opt/hazelcast/hazelcast.yaml
       - HZ_NETWORK_JOIN_TCP_IP_ENABLED=true
       - HZ_NETWORK_JOIN_TCP_IP_MEMBERS=hazelcast1
-      - HZ_LICENSEKEY=${HZ_LICENSEKEY}
     networks:
       - hznet
 
   management-center:
     image: hazelcast/management-center:latest
     container_name: mc
+    env_file: "./.env"
     ports:
       - "8080:8080"
     environment:
       - MC_DEFAULT_CLUSTER=dev
       - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast1
-      - MC_LICENSE=${HZ_LICENSEKEY}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
       - hznet
 
@@ -37,16 +36,15 @@ services:
     shm_size: 128mb
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file: "./.env"
     volumes:
       - ./data/pgsql:/var/lib/postgresql/data
-      - ./resources/pgsql.password:/run/secrets/pgsql_password:ro
     networks:
       - hznet
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - 8089:8080

@@ -16,7 +16,8 @@ COMMENT ON COLUMN public.order_status.name IS 'the status name';
 -- products table
 CREATE TABLE public.products (
     id integer PRIMARY KEY,
-    name text NOT NULL
+    name text NOT NULL,
+    price numeric(10, 2) NOT NULL
 );
 
 COMMENT ON COLUMN public.products.id IS 'the product ID';
@@ -31,6 +32,7 @@ CREATE TABLE public.orders (
     quantity integer NOT NULL,
     description text NOT NULL,
     status_id integer NOT NULL,
+    total_price numeric(10,2) NOT NULL,
     CONSTRAINT fk_orders_product
        FOREIGN KEY (product_id)
            REFERENCES public.products(id)
@@ -57,10 +59,10 @@ INSERT INTO public.order_status (id, name) VALUES
     (1, 'pending'),
     (2, 'completed');
 
-INSERT INTO public.products (id, name) VALUES
-    (1, 'laptop'),
-    (2, 'mouse'),
-    (3, 'keyboard'),
-    (4, 'hub'),
-    (5, 'hdmi_cable'),
-    (6, 'monitor');
+INSERT INTO public.products (id, name, price) VALUES
+    (1, 'laptop', 1299.99),
+    (2, 'mouse', 12.00),
+    (3, 'keyboard', 23.50),
+    (4, 'hub', 18.00),
+    (5, 'hdmi_cable', 15.99),
+    (6, 'monitor', 229.99);

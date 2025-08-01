@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  pginit:
+    image: postgres
+    volumes:
+      - ./resources:/docker-entrypoint-initdb.d:ro
+    env_file: "./.env"
+    entrypoint: >
+      bash -c '
+        export PGPASSWORD="${POSTGRES_PASSWORD}";
+        until pg_isready -h pgsql -U "$USER"; do
+          sleep 1;
+        done;
+        psql -h pgsql -U "$POSTGRES_USER" -f /docker-entrypoint-initdb.d/demo-cache-pgsql-schema.sql
+      '
+    networks:
+      - demo-cache_hznet
+    restart: "no"
+networks:
+  demo-cache_hznet:
+    external: true

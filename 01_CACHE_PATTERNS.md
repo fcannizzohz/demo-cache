@@ -22,6 +22,7 @@ Postgres can be added to the compose file and started with the cluster using the
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - ./data/pgsql:/var/lib/postgresql/data
@@ -37,7 +38,7 @@ Postgres can be added to the compose file and started with the cluster using the
       - hznet
 ```
 
-Add the variable `POSTGRES_PASSWORD` with a chosen password to the `.env` file.
+Add the variables `POSTGRES_USER`, set to `postgres` and `POSTGRES_PASSWORD` with a chosen password to the `.env` file.
 
 It can be tested using Adminer's UI at `http://localhost:8089` using
 ```
@@ -60,23 +61,15 @@ To create the schema run the following command that uses `psql` to execute the c
 docker exec -i pgsql psql -U postgres -f - < ./resources/demo-cache-pgsql-schema.sql
  ```
 
+or use the provided `compose-init.yml`:
+
+```bash
+docker compose -f compose-init.yml up --abort-on-container-exit
+```
+
 ## Setting up the Java project
 
 Before configuring Hazelcast, we need to create the Java classes representing the data in the newly created schema. These classes are `com.hazelcast.fcannizzohz.democache.model.[Order|Product|OrderStatus]`.
-
-The provided `pom.xml` file contains all the necessary dependencies. They also include
-
-```xml
-        <dependency>
-            <!-- import the opensource test support classes -->
-            <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast</artifactId>
-            <version>${hazelcast.version}</version>
-            <classifier>tests</classifier>
-        </dependency>
-```
-
-necessary to import the Hazelcast test support classes needed to unit test the code.
 
 With the pom and project setup, the following builds the jar file with the dependencies:
 
@@ -88,8 +81,51 @@ mvn clean package
 
 [This](https://docs.hazelcast.com/hazelcast/5.5/data-connections/data-connections-configuration) helps configuring a shared JDBC connection, [this](https://docs.hazelcast.com/hazelcast/5.5/mapstore/configuring-a-generic-maploader) helps configuring the generic MapLoader and [this](https://docs.hazelcast.com/hazelcast/5.5/mapstore/configuring-a-generic-mapstore) helps configuring the MapStore. 
 
-For our demonstration code we use:
+Note: Generic MapStore and MapLoader use the Hazelcast Jet streaming subsystem which must be enabled in `hazelcast.yaml`:
 
 ```yaml
-
+hazelcast:
+  jet:
+    enabled: true
+...
 ```
+
+For our demonstration code we use this definition for the `GenericMapStore` (similar definitions apply for `Orders` and `OrderStatus`):
+
+```yaml
+  ...
+  data-connection:
+    pgsql-connection:
+      type: JDBC
+      properties:
+        jdbcUrl: jdbc:postgresql://pgsql:5432/postgres
+        user: postgres
+        password: <your password>
+      shared: true
+      
+  map:
+    ...
+    products:
+      map-store:
+        enabled: true
+        class-name: com.hazelcast.mapstore.GenericMapLoader
+        properties:
+          data-connection-ref: pgsql-connection
+          external-name: products
+          id-column: id
+          columns: id,name,price
+          type-name: com.hazelcast.fcannizzohz.democache.model.Product
+    ...
+```
+
+# ISSUES
+
+- Unable to set postgres password in hazelcast.yaml
+- when MC starts this shows in Hz logs
+```
+  hz1  | [Fatal Error] :1:1: Content is not allowed in prolog.
+  hz1  | 2025-07-31 15:49:06,717 [ERROR] [hz.trusting_sammet.client.thread-4] [c.h.c.XmlConfigBuilder]: Failed to parse the inputstream
+  hz1  | Exception: Content is not allowed in prolog.
+  hz1  | Hazelcast startup interrupted.
+```
+

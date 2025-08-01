@@ -1,5 +1,8 @@
 .env
 
+data/
+target/
+
 # Compiled class file
 *.class
 

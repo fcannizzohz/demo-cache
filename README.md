@@ -15,4 +15,4 @@ In this series of micro-blogs we’ll look at all the capabilities offered by ha
 
 We’ll look at how this can be implemented in code.
 
-We’ll use MongoDB as the storage/db layer of choice
+[Table of content](./TOC.md)

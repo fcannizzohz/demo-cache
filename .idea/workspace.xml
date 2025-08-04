@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/TOC.md" beforeDir="false" afterPath="$PROJECT_DIR$/TOC.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/Product2IT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" beforeDir="false" afterPath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +83,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.hazelcast.fcannizzohz.democache" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.ProductIT.loadProductsIntoHazelcast">
@@ -223,11 +229,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/hazelcast/fcannizzohz/democache/Main.java</url>
           <line>17</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/ProductIT.java</url>
-          <line>49</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

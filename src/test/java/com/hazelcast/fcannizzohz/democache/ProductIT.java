@@ -42,7 +42,6 @@ class ProductIT {
         List<Product> products = db.getProducts();
         assertFalse(products.isEmpty(), "DB returned no products");
 
-        // Step 2: Insert into Hazelcast
         IMap<Integer, Product> productMap = hazelcast.getMap("products");
         assertEquals(products.size(), productMap.size(), "Mismatch in product count");
 

@@ -118,14 +118,23 @@ For our demonstration code we use this definition for the `GenericMapStore` (sim
     ...
 ```
 
-# ISSUES
+To prove that it works as expected, the test `com.hazelcast.fcannizzohz.democache.ProductIT#loadProductsIntoHazelcast()` shows that the map `"products"` us primed with the data from the database:
 
-- Unable to set postgres password in hazelcast.yaml
-- when MC starts this shows in Hz logs
-```
-  hz1  | [Fatal Error] :1:1: Content is not allowed in prolog.
-  hz1  | 2025-07-31 15:49:06,717 [ERROR] [hz.trusting_sammet.client.thread-4] [c.h.c.XmlConfigBuilder]: Failed to parse the inputstream
-  hz1  | Exception: Content is not allowed in prolog.
-  hz1  | Hazelcast startup interrupted.
-```
+```java
+    @Test
+    void loadProductsIntoHazelcast() throws SQLException {
+        List<Product> products = db.getProducts();
+        assertFalse(products.isEmpty(), "DB returned no products");
 
+        IMap<Integer, Product> productMap = hazelcast.getMap("products");
+        assertEquals(products.size(), productMap.size(), "Mismatch in product count");
+
+        for (Product p : products) {
+            Product product = productMap.get(p.id());
+            assertNotNull(product, "Missing product for key: " + p.id());
+            assertEquals(p.name(), product.name(), "Mismatch in product name");
+            assertEquals(p.price(), product.price(), "Mismatch in product price");
+        }
+    }
+
+```

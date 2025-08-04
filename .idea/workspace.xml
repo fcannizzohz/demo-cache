@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="" />
+    <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/BasicCachePatternsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" beforeDir="false" afterPath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,6 +47,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "Application.Main2.executor": "Run",
+    "JUnit.BasicCachePatternsTest.executor": "Run",
     "JUnit.LoadTableViaGenericMapStoreIT.shouldReadAllProductsFromMap.executor": "Run",
     "JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast.executor": "Run",
     "JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast.executor": "Run",
@@ -84,9 +89,8 @@
       <recent name="com.hazelcast.fcannizzohz.democache" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.Main" />
+  <component name="RunManager" selected="JUnit.BasicCachePatternsTest">
+    <configuration name="BasicCachePatternsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="demo-cache" />
       <extension name="coverage">
         <pattern>
@@ -94,7 +98,12 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2" />
+      <option name="PACKAGE_NAME" value="com.hazelcast.fcannizzohz.democache" />
+      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.BasicCachePatternsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="ProductIT.failWhenLoadingMissingProductsIntoHazelcast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="demo-cache" />
@@ -161,7 +170,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.BasicCachePatternsTest" />
       <item itemvalue="JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast" />
       <item itemvalue="JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast" />
       <item itemvalue="JUnit.ProductIT.loadProductsIntoHazelcast" />
@@ -169,11 +178,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BasicCachePatternsTest" />
         <item itemvalue="JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast" />
         <item itemvalue="JUnit.ProductIT.loadProductsIntoHazelcast" />
         <item itemvalue="JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast" />
         <item itemvalue="JUnit.ProductIT.shouldReadAllProductsFromMap" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>

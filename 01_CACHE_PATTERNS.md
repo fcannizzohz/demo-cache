@@ -117,7 +117,7 @@ For our demonstration code we use this definition for the `GenericMapStore` (sim
       type: JDBC
       properties:
         jdbcUrl: jdbc:postgresql://pgsql:5432/postgres
-        user: postgres
+        user: <your user>
         password: <your password>
       shared: true
       
@@ -246,6 +246,10 @@ Write coalescing is beneficial when frequent updates to the same cache values oc
 | `write-coalescing`    | `false`         | If enabled, only the most recent update to a given key is written during the write-delay window, discarding intermediate updates.                   |
 
 Enabling it reduces redundant writes but may risk losing intermediate states. It should be adopted unless intermediate versions of the same cache values must be preserved (e.g. for audit or incremental change tracking).
+
+### Another code example
+
+The tests in [`com.hazelcast.fcannizzohz.democache.BasicCachePatternsTest`](./src/test/java/com/hazelcast/fcannizzohz/democache/BasicCachePatternsTest.java) show a simple configuration of the implementation of the four patterns. The test uses a mocked MapStore which is configured using the parameters described above.
 
 ### Final remarks
 

@@ -52,5 +52,16 @@ class ProductIT {
             assertEquals(p.price(), product.price(), "Mismatch in product price");
         }
     }
+
+    @Test
+    void failWhenLoadingMissingProductsIntoHazelcast() throws SQLException {
+        List<Product> products = db.getProducts();
+        Product product = new Product(900, "I don't exist", new BigDecimal("100.00"));
+        assertFalse(products.contains(product), "Missing product for key: " + product.id());
+
+        IMap<Integer, Product> productMap = hazelcast.getMap("products");
+        Product missing = productMap.get(product.id());
+        assertNull(missing, "Missing product for key: " + product.id());
+    }
 }
 

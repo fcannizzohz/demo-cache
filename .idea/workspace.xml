@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/Product2IT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" beforeDir="false" afterPath="$PROJECT_DIR$/01_CACHE_PATTERNS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/hazelcast.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/resources/hazelcast.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/ProductIT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/hazelcast/fcannizzohz/democache/ProductIT.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +50,7 @@
     "Application.Main.executor": "Run",
     "Application.Main2.executor": "Run",
     "JUnit.LoadTableViaGenericMapStoreIT.shouldReadAllProductsFromMap.executor": "Run",
+    "JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast.executor": "Run",
     "JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast.executor": "Run",
     "JUnit.ProductIT.loadProductsIntoHazelcast.executor": "Run",
     "Maven.demo-cache [clean].executor": "Run",
@@ -88,7 +90,7 @@
       <recent name="com.hazelcast.fcannizzohz.democache" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProductIT.loadProductsIntoHazelcast">
+  <component name="RunManager" selected="JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.Main" />
       <module name="demo-cache" />
@@ -100,12 +102,7 @@
       </extension>
       <method v="2" />
     </configuration>
-    <configuration name="Main2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <envs>
-        <env name="HZ_DATACONNECTION_PGSQLCONNECTION_PROPERTIES_PASSWORD" value="p123" />
-        <env name="HZ_DATACONNECTION_PGSQLCONNECTION_TYPE" value="JDBC" />
-      </envs>
-      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.Main2" />
+    <configuration name="ProductIT.failWhenLoadingMissingProductsIntoHazelcast" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="demo-cache" />
       <extension name="coverage">
         <pattern>
@@ -113,6 +110,10 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="com.hazelcast.fcannizzohz.democache" />
+      <option name="MAIN_CLASS_NAME" value="com.hazelcast.fcannizzohz.democache.ProductIT" />
+      <option name="METHOD_NAME" value="failWhenLoadingMissingProductsIntoHazelcast" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,19 +167,19 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main2" />
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast" />
       <item itemvalue="JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast" />
       <item itemvalue="JUnit.ProductIT.loadProductsIntoHazelcast" />
       <item itemvalue="JUnit.ProductIT.shouldReadAllProductsFromMap" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ProductIT.failWhenLoadingMissingProductsIntoHazelcast" />
         <item itemvalue="JUnit.ProductIT.loadProductsIntoHazelcast" />
         <item itemvalue="JUnit.ProductIT.loadProductsFromDbAndInsertIntoHazelcast" />
         <item itemvalue="JUnit.ProductIT.shouldReadAllProductsFromMap" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Main2" />
       </list>
     </recent_temporary>
   </component>

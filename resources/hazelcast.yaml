@@ -1,4 +1,7 @@
 hazelcast:
+  management-center:
+    console-enabled: true
+
   cluster-name: dev
   jet:
     enabled: true
@@ -10,8 +13,8 @@ hazelcast:
       type: JDBC
       properties:
         jdbcUrl: jdbc:postgresql://pgsql:5432/postgres
-        user: postgres
-        password: p0stgres123
+        user: "check .env file"
+        password: "check .env file"
       shared: true
 
   map:

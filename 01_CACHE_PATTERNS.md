@@ -5,7 +5,7 @@ There are many caching patterns that one may want to consider when designing an 
 In here we'll discuss in depth those that hazelcast allows an application to leverage.
 
 These patterns are described at high level, in the blog [A Hitchhiker’s Guide to Caching Patterns](https://hazelcast.com/blog/a-hitchhikers-guide-to-caching-patterns/). 
-We'll focus now on how to implement the three most basic patterns:
+We'll focus now on how to implement the four most basic patterns:
 
 - **Read-Through**:  on a cache miss, the cache manager fetches the data from the underlying data store
 - **Write-Through**: on a cache write, the cache manager stores synchronously the data to the underlying data store

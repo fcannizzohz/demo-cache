@@ -10,8 +10,9 @@ We'll focus now on how to implement the three most basic patterns:
 - **Read-Through**:  on a cache miss, the cache manager fetches the data from the underlying data store
 - **Write-Through**: on a cache write, the cache manager stores synchronously the data to the underlying data store
 - **Write-Behind**: on a cache write, the cache manager buffers the writes and asynchronously writes to the underlying data store.
+- **Write-Coalescing**: on a cache write when the cache manager only writes the latest value of a set of changes to the same cache element.
 
-We'll skip the two that don't leverage the automation and integration that Hazelcast provides: 
+We'll skip the three that don't leverage the automation and integration that Hazelcast provides: 
 
 - **Cache-Aside**: The application code explicitly checks the cache first, and if there's a miss, it fetches data from the underlying store and populates the cache
 - **Read-Around**: Reads bypass the cache for certain data (e.g. known stale data) and go directly to the data store.
@@ -22,7 +23,6 @@ We'll discuss other more advanced patterns in the next post:
 - **Negative-Caching**
 - **Refresh-Ahead**
 - **Near-Caching**
-- **Write-Coalescing**
 
 ## Setup a relational database
 
@@ -232,11 +232,21 @@ If performance is key, then Write-Behind is better. To achieve this, the MapStor
 |-----------------------| --------------- |---|
 | `write-delay-seconds` | `0` (disabled)  | The number of seconds to wait before writing modified entries to the underlying data store. When greater than 0, write-behind caching is enabled.   |
 | `write-batch-size`    | `-` (unlimited) | The maximum number of entries to include in a single batch write operation. This setting optimises round-trips to the data store by grouping writes. |
-| `write-coalescing`    | `false`         | If enabled, only the most recent update to a given key is written during the write-delay window, discarding intermediate updates.                   |
 
 The optimal configuration for these properties depends on the workload characteristics and performance goals:
 - `write-delay-seconds` controls the trade-off between latency and throughput. Set to `0` for synchronous Write-Trough semantics. Use a positive value for asynchronous Write-Behind behaviour to reduce load on the backend and improve throughput, especially for bursty workloads.
 - `write-batch-size` should be tuned based on the backend system's ability to handle batch writes. If the store supports batch inserts or updates efficiently, increasing this value can significantly reduce write bottlenecks and improve performance.
-- `write-coalescing` is beneficial when frequent updates to the same cache values occur in a short timeframe. Enabling it reduces redundant writes but may risk losing intermediate states. Disable it if intermediate versions must be preserved (e.g. for audit or incremental change tracking).
+
+### Write-Coalescing
+
+Write coalescing is beneficial when frequent updates to the same cache values occur in a short timeframe. This pattern can be activated by setting
+
+| Map Store Property    | Default         | Description   |
+|-----------------------| --------------- |---|
+| `write-coalescing`    | `false`         | If enabled, only the most recent update to a given key is written during the write-delay window, discarding intermediate updates.                   |
+
+Enabling it reduces redundant writes but may risk losing intermediate states. It should be adopted unless intermediate versions of the same cache values must be preserved (e.g. for audit or incremental change tracking).
+
+### Final remarks
 
 Hazelcast offers a wide set of configuration parameters all available via the official documentation.

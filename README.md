@@ -5,7 +5,7 @@ One of Hazelcast’s primary use cases is to work as a caching layer to accelera
 In this series of micro-blogs we’ll look at all the capabilities offered by hazelcast as a cache, specifically:
 
  - implement basic caching patterns
- - custom loaders to customize load/store behaviour and advanced patterns (refresh-ahead, write-around, read-around, write-coaleshing, negative-caching)
+ - custom loaders to customize load/store behaviour and advanced patterns (refresh-ahead, negative-caching)
  - use CDC to keep cache in sync
  - optimize access to read data using near cache
  - optimize operations using persistence

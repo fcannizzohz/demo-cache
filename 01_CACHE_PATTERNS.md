@@ -72,6 +72,7 @@ The demo schema can be created using the SQL in `./demo-cache-pgsql-schema.sql` 
 - `Products`, a list of orderable products
 - `Order_Status`, the status of an order (`pending` when created and `completed` when fulfilled)
 - `Orders`, the orders for a product, including the relevant timestamps, quantity and order status. 
+- `CustomerProfile`, the customer associated to the order.
 
 To create the schema run the following command that uses `psql` to execute the commands to create the schema in the `postgres` database:
 
@@ -108,7 +109,7 @@ hazelcast:
 ...
 ```
 
-For our demonstration code we use this definition for the `GenericMapStore` (similar definitions apply for `Orders` and `OrderStatus`):
+For our demonstration code we use this definition for the `GenericMapStore` (similar definition applies for `OrderStatus`):
 
 ```yaml
   ...
@@ -135,6 +136,8 @@ For our demonstration code we use this definition for the `GenericMapStore` (sim
           type-name: com.hazelcast.fcannizzohz.democache.model.Product
     ...
 ```
+
+`CustomerProfiles` and `Òrders` are not mapped to a MapStore and will be considered later.
 
 To prove that it works as expected, the test `com.hazelcast.fcannizzohz.democache.ProductIT#loadProductsIntoHazelcast()` shows that the map `"products"` us primed with the data from the database:
 

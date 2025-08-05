@@ -18,16 +18,6 @@ hazelcast:
       shared: true
 
   map:
-    orders:
-      map-store:
-        enabled: true
-        class-name: com.hazelcast.mapstore.GenericMapLoader
-        properties:
-          data-connection-ref: pgsql-connection
-          external-name: orders
-          id-column: id
-          columns: id,product_id,created_at,updated_at,quantity,description,status_id,total_price
-          type-name: com.hazelcast.fcannizzohz.democache.model.Order
     orderstatus:
       map-store:
         enabled: true

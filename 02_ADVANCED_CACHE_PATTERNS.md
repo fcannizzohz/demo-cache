@@ -13,7 +13,7 @@ we'll look at building one to illustrate two advanced cache patterns:
 
 ## Refresh-ahead
 
-Refresh-ahead complements TTL based expiration, where stale entries are evicted and then reloaded on cache miss, by preemptively load cache entries to prevent cache misses. It's particoularly useful when load time is large and to prevent spikes in the backend system when multiple entries expire simultaneously.
+Refresh-ahead complements TTL based expiration, where stale entries are evicted and then reloaded on cache miss, by preemptively load cache entries to prevent cache misses. It's particularly useful when load time is large and to prevent spikes in the backend system when multiple entries expire simultaneously.
 
 It can be quite complex to implement but with Hazelcast's API some of this complexity is removed. 
 
@@ -21,7 +21,53 @@ Furthermore there are multiple strategies that could be implemented all dependin
 
 The main strategies are:
 
- - Procedural (or time-based, proactive): a process periodically scans the cache and refreshes the top-N hot keys, for example refresh the orders of the top 100 users just before their TTL expires. To identify "hot" entries, one can think of different mechanisms, for example, keeping a priority queue with the top entries to refresh or adopting a larning algorithm that statistically learns what entries are likely to be accessed.
-  - Event-Driven (reactive): trigger a refresh when an event occurs (eg a cache miss, access to a cache, ...), for example on cache miss for a customer profile, pre-fetch their orders asynchronously
+ - **Procedural (or time-based, proactive)**: a process periodically scans the cache and refreshes the top-N hot keys, for example refresh the orders of the top 100 users just before their TTL expires. To identify "hot" entries, one can think of different mechanisms, for example, keeping a priority queue with the top entries to refresh or adopting a larning algorithm that statistically learns what entries are likely to be accessed.
+ - **Event-Driven (reactive)**: trigger a refresh when an event occurs (eg a cache miss, access to a cache, ...), for example on cache miss for a customer profile, pre-fetch their orders asynchronously
 
-For illustration purposes we'll implement a reactive strategy to loads the last 10 orders of a customer every time a customer profile is loaded in cache. 
+### Procedural strategy
+
+To implement a proactive strategy we'll define for illustration purpose only the top customers as those with the largest number of interactions with the system. For those customers, we'll refresh ahead their last 5 orders.
+
+There are different techniques one may adopt to implement this behaviour. For simplicity, here, we assume we have an event stream representing customer interaction: `ActivityEvent(Integer customerId, Instant timestamp)` which are stored in a cache.
+
+Assuming the TTL for `Orders` map is 10 minutes, we'll identify the top-10 customers by creating a pipeline aggregating the customers in a sliding window of 9 minutes, every minute, and counting the interactions for each customer, then ordering and filtering the top 10:
+
+```java
+public static Pipeline buildPipeline(int topN, long windowSize, long slideBy, long lag) {
+    StreamSource<Map.Entry<Integer, ActivityEvent>> source = Sources.mapJournal(DEFAULT_ACTIVITY_MAP_NAME,
+            JournalInitialPosition.START_FROM_CURRENT);
+
+    WindowDefinition windowDef = sliding(windowSize, slideBy);
+    ToLongFunctionEx<Map.Entry<Integer, ActivityEvent>> toLongInstant =
+            activityEventEntry -> activityEventEntry.getValue().timestamp().toEpochMilli();
+
+    Pipeline p = Pipeline.create();
+
+    p.readFrom(source).withTimestamps(toLongInstant, lag)  // allow lag
+     // group by customerId
+     .groupingKey((FunctionEx<Map.Entry<Integer, ActivityEvent>, Integer>) e -> e.getValue().customerId())
+     // define the window
+     .window(windowDef)
+     // aggregate by counting
+     .aggregate(AggregateOperations.counting())
+     // map to customerId->count
+     .map(customerCount -> Tuple2.tuple2(customerCount.key(), customerCount.result()))
+     // single group
+     .groupingKey(t -> "top-N")
+     // select top N
+     .rollingAggregate(AggregateOperations.topN(topN, ComparatorEx.comparingLong(Tuple2<Integer, Long>::f1)))
+     // map back to customerId->count
+     .flatMap(result -> Traversers.traverseIterable(result.getValue()))
+     // sink to map
+     .writeTo(Sinks.map(DEFAULT_CUSTOMER_COUNT_MAP_NAME,
+             // customerId
+             Tuple2::f0,
+             // count
+             Tuple2::f1
+     ));
+    return p;
+}
+```
+
+The test `com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipelineTest#testPipeline()` shows how this pipeline works when executed.
+

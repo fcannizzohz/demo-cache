@@ -131,17 +131,7 @@ class BasicCachePatternsTest {
         MapConfig mapConfig = new MapConfig(mapName)
                 .setMapStoreConfig(storeConfig);
 
-        Map<String, String> env;
-        try {
-            env = EnvLoader.load(".env");
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to load env file.", e);
-        }
-
-        Config config = new Config()
-                .addMapConfig(mapConfig)
-                .setClusterName(randomName())
-                .setLicenseKey(env.get("HZ_LICENSEKEY"));
+        Config config = TestConfig.newTestConfig().addMapConfig(mapConfig);
 
         HazelcastInstance hz = Hazelcast.newHazelcastInstance(config);
         return hz.getMap(mapName);

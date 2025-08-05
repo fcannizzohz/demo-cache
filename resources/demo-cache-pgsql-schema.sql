@@ -1,6 +1,7 @@
 
 -- Drop in dependency-safe order
 DROP TABLE IF EXISTS public.orders;
+DROP TABLE IF EXISTS public.customerprofiles;
 DROP TABLE IF EXISTS public.products;
 DROP TABLE IF EXISTS public.order_status;
 
@@ -23,10 +24,23 @@ CREATE TABLE public.products (
 COMMENT ON COLUMN public.products.id IS 'the product ID';
 COMMENT ON COLUMN public.products.name IS 'the product name';
 
+-- products table
+CREATE TABLE public.customerprofiles (
+    id integer PRIMARY KEY,
+    name text NOT NULL,
+    email text NOT NULL UNIQUE
+);
+
+COMMENT ON COLUMN public.customerprofiles.id IS 'the customer profile ID';
+COMMENT ON COLUMN public.customerprofiles.name IS 'the customer name';
+COMMENT ON COLUMN public.customerprofiles.email IS 'the customer email';
+
+
 -- orders table
 CREATE TABLE public.orders (
     id uuid PRIMARY KEY,
     product_id integer NOT NULL,
+    customer_id integer NOT NULL,
     created_at timestamp NOT NULL,
     updated_at timestamp NOT NULL,
     quantity integer NOT NULL,
@@ -34,9 +48,13 @@ CREATE TABLE public.orders (
     status_id integer NOT NULL,
     total_price numeric(10,2) NOT NULL,
     CONSTRAINT fk_orders_product
-       FOREIGN KEY (product_id)
-           REFERENCES public.products(id)
-           ON DELETE CASCADE,
+        FOREIGN KEY (product_id)
+            REFERENCES public.products(id)
+            ON DELETE CASCADE,
+    CONSTRAINT fk_orders_customer
+        FOREIGN KEY (customer_id)
+            REFERENCES public.customerprofiles(id)
+            ON DELETE CASCADE,
     CONSTRAINT fk_orders_status
        FOREIGN KEY (status_id)
            REFERENCES public.order_status(id)
@@ -45,6 +63,7 @@ CREATE TABLE public.orders (
 
 COMMENT ON COLUMN public.orders.id IS 'the order ID';
 COMMENT ON COLUMN public.orders.product_id IS 'the ID of the product ordered';
+COMMENT ON COLUMN public.orders.customer_id IS 'the ID of the customer for this order';
 COMMENT ON COLUMN public.orders.created_at IS 'the order creation timestamp';
 COMMENT ON COLUMN public.orders.updated_at IS 'the order last update timestamp';
 COMMENT ON COLUMN public.orders.quantity IS 'the quantity ordered';
@@ -53,6 +72,7 @@ COMMENT ON COLUMN public.orders.status_id IS 'the order status';
 
 -- indexes
 CREATE INDEX idx_orders_product_id ON public.orders(product_id);
+CREATE INDEX idx_orders_product_id ON public.orders(customer_id);
 CREATE INDEX idx_orders_status_id ON public.orders(status_id);
 
 INSERT INTO public.order_status (id, name) VALUES

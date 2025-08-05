@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/02_ADVANCED_CACHE_PATTERNS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02_CUSTOM_MAPSTORE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TOC.md" beforeDir="false" afterPath="$PROJECT_DIR$/TOC.md" afterDir="false" />
-    </list>
+    <list default="true" id="23cb44c1-5ff8-408c-8c05-7dd819bb5e53" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

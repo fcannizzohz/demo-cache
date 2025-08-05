@@ -12,6 +12,7 @@ In this series of micro-blogs, we’ll explore how to use Hazelcast effectively 
  - Enforcing strong consistency with the CP Subsystem
  - Using persistence to optimise cache startup and recovery
  - Monitoring and alerting on cache operations
+ - Benchmarking caches
 
 Each topic will include code examples to show how these capabilities can be implemented in practice.
 

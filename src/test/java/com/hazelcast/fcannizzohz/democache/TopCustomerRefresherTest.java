@@ -47,20 +47,10 @@ class TopCustomerRefresherTest {
         return instance.getMap("orders");
     }
 
-    private void printStats(long start) {
-        System.out.println("--");
-        ordersMap().forEach((key, value) -> {
-            EntryView<String, Order> entry = ordersMap().getEntryView(key);
-            long ttl = entry.getExpirationTime() - start;
-            System.out.println("ttl('" + key + "') -> customerId=" + value.customerId() + ", ttl=" + ttl);
-        });
-    }
-
     @Test
     void testRefresh() throws InterruptedException {
         int topN = 10;
         int hoursWindow = 24;
-        long start = System.currentTimeMillis();
         // populate orders map
         OrderGenerator.populateWithOrders(topN * 5, 10, hoursWindow * 2, ordersMap());
         IMap<Integer, Long> topCustomers = instance.getMap(TopActiveCustomersPipeline.DEFAULT_CUSTOMER_COUNT_MAP_NAME);
@@ -69,29 +59,13 @@ class TopCustomerRefresherTest {
         Stream<Integer> refreshCustomerIds = customerIds.stream().limit(topN);
         refreshCustomerIds.forEach(customerId -> topCustomers.put(customerId, ThreadLocalRandom.current().nextLong(20)));
 
-        int initialOrderMapSize = ordersMap().size();
-
         TopCustomerRefresher topCustomerRefresher = new TopCustomerRefresher(topN, 24, instance);
         sleep(2000);
         Integer refreshCount = topCustomerRefresher.call();
         System.out.println("refreshCount = " + refreshCount);
         sleep(1000);
 
-        System.out.println("initialOrderMapSize = " + initialOrderMapSize);
-        System.out.println("orderMapSize = " + ordersMap().size());
 
-        sleep(1000);
-        System.out.println("orderMapSize = " + ordersMap().size());
-        sleep(1000);
-        System.out.println("orderMapSize = " + ordersMap().size());
-        sleep(1000);
-        System.out.println("orderMapSize = " + ordersMap().size());
-        sleep(1000);
-        System.out.println("orderMapSize = " + ordersMap().size());
-        sleep(1000);
-        System.out.println("orderMapSize = " + ordersMap().size());
-
-//        printStats(start);
     }
 
 }

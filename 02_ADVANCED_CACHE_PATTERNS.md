@@ -69,6 +69,8 @@ public static Pipeline buildPipeline(int topN, long windowSize, long slideBy, lo
 }
 ```
 
+The test `com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipelineTest#testPipeline()` shows how this pipeline works when executed.
+
 At the same time, an order refresher process can be dispatched via distributed executor on the cluster. This process, 
 fully implemented in `com.hazelcast.fcannizzohz.democache.TopCustomerRefresher` looks like:
 
@@ -100,5 +102,5 @@ fully implemented in `com.hazelcast.fcannizzohz.democache.TopCustomerRefresher` 
 
 ```
 
-The test `com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipelineTest#testPipeline()` shows how this pipeline works when executed.
+The test `com.hazelcast.fcannizzohz.democache.TopCustomerRefresherTest#testRefresher()` shows how this process works when executed.
 

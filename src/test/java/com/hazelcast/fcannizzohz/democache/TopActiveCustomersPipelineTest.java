@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CancellationException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipeline.DEFAULT_ACTIVITY_MAP_NAME;
 import static com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipeline.DEFAULT_CUSTOMER_COUNT_MAP_NAME;
@@ -37,7 +38,6 @@ class TopActiveCustomersPipelineTest {
         factory = new TestHazelcastFactory();
 
         Config config = TestConfig.newTestConfig();
-        config.setJetConfig(new JetConfig().setEnabled(true));
         config.getMapConfig(DEFAULT_ACTIVITY_MAP_NAME)
               .getEventJournalConfig()
               .setEnabled(true)
@@ -60,10 +60,9 @@ class TopActiveCustomersPipelineTest {
         Pipeline pipeline = TopActiveCustomersPipeline.buildPipeline(10, 1000, 100, 0);
         Job job = jet.newJob(pipeline);
         IMap<String, ActivityEvent> activityMap = instance.getMap(DEFAULT_ACTIVITY_MAP_NAME);
-        Random random = new Random();
         for(int i = 0; i < 100; i++) {
-            Integer customerId = random.nextInt(10);
-            sleep(random.nextInt(10));
+            Integer customerId = ThreadLocalRandom.current().nextInt(10);
+            sleep(ThreadLocalRandom.current().nextInt(10));
             activityMap.put(UUID.randomUUID().toString(), new ActivityEvent(customerId, Instant.now()));
         }
         processFor(job, Duration.ofMillis(1500)); // wait for job to process

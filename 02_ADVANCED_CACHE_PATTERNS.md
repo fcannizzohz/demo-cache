@@ -69,5 +69,36 @@ public static Pipeline buildPipeline(int topN, long windowSize, long slideBy, lo
 }
 ```
 
+At the same time, an order refresher process can be dispatched via distributed executor on the cluster. This process, 
+fully implemented in `com.hazelcast.fcannizzohz.democache.TopCustomerRefresher` looks like:
+
+```java
+    public Integer call() {
+        IMap<Integer, Long> customerCountMap = hz.getMap(DEFAULT_CUSTOMER_COUNT_MAP_NAME);
+
+        // 1. Get all customer counts
+        Map<Integer, Long> counts = customerCountMap.getAll(customerCountMap.keySet());
+
+        // 2. Identify top 10 customers by count
+        List<Integer> topCustomers = counts.entrySet().stream()
+                                           .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+                                           .limit(topN)
+                                           .map(Map.Entry::getKey)
+                                           .toList();
+
+        Instant now = Instant.now();
+        Instant cutoff = now.minus(Duration.ofHours(hoursWindow));
+        Predicate<Object, Object> customerOrders = Predicates.in("customerId", topCustomers.toArray(new Comparable[0]));
+        Predicate<Object, Object> lastOrders = Predicates.greaterEqual("updatedAt", cutoff);
+
+        IMap<String, Order> ordersMap = hz.getMap("orders");
+        Collection<Order> refreshed = ordersMap.values(Predicates.and(customerOrders, lastOrders));
+
+        return refreshed.size();
+    }}
+
+
+```
+
 The test `com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipelineTest#testPipeline()` shows how this pipeline works when executed.
 

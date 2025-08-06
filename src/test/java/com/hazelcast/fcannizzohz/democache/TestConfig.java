@@ -1,6 +1,7 @@
 package com.hazelcast.fcannizzohz.democache;
 
 import com.hazelcast.config.Config;
+import com.hazelcast.jet.config.JetConfig;
 
 import java.io.IOException;
 import java.util.Map;
@@ -16,7 +17,10 @@ public class TestConfig {
             throw new RuntimeException("Unable to load env file.", e);
         }
 
-        return new Config().setClusterName(randomName()).setLicenseKey(env.get("HZ_LICENSEKEY"));
+        return new Config()
+                .setJetConfig(new JetConfig().setEnabled(true))
+                .setClusterName(randomName())
+                .setLicenseKey(env.get("HZ_LICENSEKEY"));
 
     }
 }

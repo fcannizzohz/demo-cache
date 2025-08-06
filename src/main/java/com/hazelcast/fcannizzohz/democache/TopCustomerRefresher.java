@@ -23,6 +23,10 @@ public class TopCustomerRefresher implements Callable<Integer>, Serializable {
     private final int topN;
     private final int hoursWindow;
 
+    public TopCustomerRefresher() {
+        this(10, 24, Hazelcast.bootstrappedInstance());
+    }
+
     public TopCustomerRefresher(int topN, int hoursWindow) {
         this(topN, hoursWindow, Hazelcast.bootstrappedInstance());
     }

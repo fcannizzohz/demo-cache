@@ -1,28 +1,22 @@
 package com.hazelcast.fcannizzohz.democache;
 
-import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.client.test.TestHazelcastFactory;
 import com.hazelcast.config.Config;
-import com.hazelcast.config.MapConfig;
-import com.hazelcast.core.EntryView;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.fcannizzohz.democache.model.Order;
-import com.hazelcast.jet.config.JetConfig;
 import com.hazelcast.map.IMap;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 import static java.lang.Thread.sleep;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class TopCustomerRefresherTest {
+class TopCustomersOrdersRefresherTest {
     private TestHazelcastFactory factory;
     private HazelcastInstance instance;
 
@@ -48,7 +42,8 @@ class TopCustomerRefresherTest {
     }
 
     @Test
-    void testRefresh() throws InterruptedException {
+    void testRefresh()
+            throws InterruptedException {
         int topN = 10;
         int hoursWindow = 24;
         // populate orders map
@@ -59,12 +54,12 @@ class TopCustomerRefresherTest {
         Stream<Integer> refreshCustomerIds = customerIds.stream().limit(topN);
         refreshCustomerIds.forEach(customerId -> topCustomers.put(customerId, ThreadLocalRandom.current().nextLong(20)));
 
-        TopCustomerRefresher topCustomerRefresher = new TopCustomerRefresher(topN, 24, instance);
+        TopCustomersOrdersRefresher topCustomerOrdersRefresher = new TopCustomersOrdersRefresher(topN, 24, instance);
         sleep(2000);
-        Integer refreshCount = topCustomerRefresher.call();
+        Integer refreshCount = topCustomerOrdersRefresher.call();
         System.out.println("refreshCount = " + refreshCount);
+        assertTrue(refreshCount > 0);
         sleep(1000);
-
 
     }
 

@@ -17,21 +17,22 @@ import java.util.concurrent.Callable;
 
 import static com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipeline.DEFAULT_CUSTOMER_COUNT_MAP_NAME;
 
-public class TopCustomerRefresher implements Callable<Integer>, Serializable {
+public class TopCustomersOrdersRefresher
+        implements Callable<Integer>, Serializable {
 
     private final HazelcastInstance hz;
     private final int topN;
     private final int hoursWindow;
 
-    public TopCustomerRefresher() {
-        this(10, 24, Hazelcast.bootstrappedInstance());
+    public TopCustomersOrdersRefresher() {
+        this(10, 24);
     }
 
-    public TopCustomerRefresher(int topN, int hoursWindow) {
+    public TopCustomersOrdersRefresher(int topN, int hoursWindow) {
         this(topN, hoursWindow, Hazelcast.bootstrappedInstance());
     }
 
-    public TopCustomerRefresher(int topN, int hoursWindow, HazelcastInstance hazelcastInstance) {
+    public TopCustomersOrdersRefresher(int topN, int hoursWindow, HazelcastInstance hazelcastInstance) {
         this.hz = hazelcastInstance;
         this.topN = topN;
         this.hoursWindow = hoursWindow;

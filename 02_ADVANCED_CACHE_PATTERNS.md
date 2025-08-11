@@ -22,7 +22,7 @@ Furthermore there are multiple strategies that could be implemented all dependin
 The main strategies are:
 
  - **Procedural (or time-based, proactive)**: a process periodically scans the cache and refreshes the top-N hot keys, for example refresh the orders of the top 100 users just before their TTL expires. To identify "hot" entries, one can think of different mechanisms, for example, keeping a priority queue with the top entries to refresh or adopting a larning algorithm that statistically learns what entries are likely to be accessed.
- - **Event-Driven (reactive)**: trigger a refresh when an event occurs (eg a cache miss, access to a cache, ...), for example on cache miss for a customer profile, pre-fetch their orders asynchronously
+ - **Event-Driven (reactive)**: trigger a refresh when an event occurs (eg a cache miss, access to a cache, ...), for example on cache miss for a customer profile, pre-fetch their orders asynchronously.
 
 ### Procedural strategy
 
@@ -72,7 +72,7 @@ public static Pipeline buildPipeline(int topN, long windowSize, long slideBy, lo
 The test `com.hazelcast.fcannizzohz.democache.TopActiveCustomersPipelineTest#testPipeline()` shows how this pipeline works when executed.
 
 At the same time, an order refresher process can be dispatched via distributed executor on the cluster. This process, 
-fully implemented in `com.hazelcast.fcannizzohz.democache.TopCustomerRefresher` looks like:
+fully implemented in `com.hazelcast.fcannizzohz.democache.TopCustomersOrdersRefresher` looks like:
 
 ```java
     public Integer call() {
@@ -102,5 +102,21 @@ fully implemented in `com.hazelcast.fcannizzohz.democache.TopCustomerRefresher` 
 
 ```
 
-The test `com.hazelcast.fcannizzohz.democache.TopCustomerRefresherTest#testRefresher()` shows how this process works when executed.
+The test `com.hazelcast.fcannizzohz.democache.TopCustomersOrdersRefresherTest#testRefresher()` shows how this process works when executed.
 
+### Event-driven strategy (reactive)
+
+To implement this strategy, Hazelcast provides the [`EntityListener` interface](https://docs.hazelcast.com/hazelcast/5.5/data-structures/listening-for-map-entries#listeners) that allows to attach to a cache (the entire table or eny of its keys) a 
+listener for events. 
+
+In our example, we attach the listener to the `CustomerProfile` cache (the IMap `customers`) and trigger, on a cache add/miss event, the `orders` map refresh to load orders updated in the last 24h. The class `com.hazelcast.fcannizzohz.democache.CustomerOrderRefresher` does the refresh logic and its tested in 
+
+The specific events we're interested is are `EntryAddedListener<Integer, CustomerProfile>#entityAdded()` and `EntryLoadedListener<Integer, CustomerProfile>#entityLoaded()`: the implementation is in
+`com.hazelcast.fcannizzohz.democache.OnCustomerEntityMissingStartRefreshListener` and tested in `OnCustomerEntityMissingStartRefreshListenerTest`. 
+
+The event driven strategy is simpler but it may create spikes or high contention in some cases, for example, when the refresh logic is triggered multiple times concurrently. On the other end a proactive approach may produce a better and more controlled execution but introduce a lag between the event detection and execution.
+
+
+## Negative Caching
+
+Negative caching is the 

@@ -102,6 +102,11 @@
             <version>42.7.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>7.0.1</version>
+        </dependency>
         <!-- START: import the opensource test support classes and necessary other dependencies -->
         <dependency>
             <groupId>com.hazelcast</groupId>

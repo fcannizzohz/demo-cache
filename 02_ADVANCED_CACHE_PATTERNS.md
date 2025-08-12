@@ -97,9 +97,7 @@ fully implemented in `com.hazelcast.fcannizzohz.democache.TopCustomersOrdersRefr
         Collection<Order> refreshed = ordersMap.values(Predicates.and(customerOrders, lastOrders));
 
         return refreshed.size();
-    }}
-
-
+    }
 ```
 
 The test `com.hazelcast.fcannizzohz.democache.TopCustomersOrdersRefresherTest#testRefresher()` shows how this process works when executed.
@@ -119,4 +117,75 @@ The event driven strategy is simpler but it may create spikes or high contention
 
 ## Negative Caching
 
-Negative caching is the 
+Negative caching involves caching the fact that a given lookup resulted in a miss — for example, caching a "not found" result (such as null, empty list, or a sentinel value) when a key doesn't exist in the underlying data store.
+
+It prevents repeated expensive lookups for non-existent data as well as reducing load on downstream systems or databases during cache miss storms.
+It is useful in security/auth (e.g. user/token not found), product catalogs (missing SKUs), or dynamic pricing (non-applicable overrides).
+
+For illustration purposes, we'll implement negative caching in a custom MapStore for Orders and adopt it for orders not found.
+
+Full documentation on how to implement a custom map store is in [Hazelcast docs](https://docs.hazelcast.com/hazelcast/5.5/mapstore/implement-a-mapstore)
+
+### Sentinel object
+
+We define an order sentinel representing NOT_FOUND: 
+
+```java
+public class OrderSentinels {
+    public static final Order NOT_FOUND = new Order(
+            new UUID(0, 0),
+            -1,
+            -1,
+            Instant.EPOCH,
+            Instant.EPOCH,
+            0,
+            "NOT_FOUND",
+            BigDecimal.ZERO,
+            -1
+    );
+}
+```
+
+Sentinel values should be consistent to the type of return from map store. Different errors may require different sentinels and sentinels should distinguish between ached absence from an actual null or missing entry.
+
+### OrdersMapStore and OrdersEntryStore
+
+We define a MapStore for the `ordedrs` map with the specific logic to return the sentinel when an order isn't found.
+
+In there we use the sentinel NOT_FOUND in the load method:
+
+```java
+    public Order load(UUID key) {
+        String sql = "SELECT * FROM orders WHERE id = ?";
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, key.toString());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapRow(rs);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to load order " + key + ": " + e.getMessage());
+        }
+        return OrderSentinels.NOT_FOUND;
+    }
+```
+
+Obviously more sentinels can be created for more use cases.
+
+It's best practice to fine tune the time-to-leave of the sentinel objects in memory to be distinct from any other cached element; this fine tunes the behaviour of the MapStore to minimise the risks of stale negatives.
+
+To achieve this, Hazelcast has EntryLoader that allows you to set time-to-live values per key before handing the values to Hazelcast:
+
+```java
+    @Override
+    public MetadataAwareValue<Order> load(String key) {
+        Order order = loadOrder(key, this.dataSource); // from OrderMapStore
+        if(OrderSentinels.NOT_FOUND.equals(order)) {
+            return new MetadataAwareValue<>(OrderSentinels.NOT_FOUND, 1000);
+        }
+        return new MetadataAwareValue<>(order); // default expiry
+    }
+```
+
